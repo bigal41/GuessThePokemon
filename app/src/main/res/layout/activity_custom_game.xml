@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_custom_game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.alphabytedesigns.guessthepokemon.Activities.CustomGameActivity">
+
+    <CheckBox
+        android:text="Gen 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="46dp"
+        android:id="@+id/chkGen1"
+        android:onClick="onCheckboxClicked"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+        android:checked="false" />
+
+    <TextView
+        android:text="Pick The Generations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/lblGenerations"
+        android:textSize="24sp" />
+
+    <CheckBox
+        android:text="Gen 3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkGen3"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_alignBaseline="@+id/chkGen2"
+        android:layout_alignBottom="@+id/chkGen2"
+        android:layout_toLeftOf="@+id/chkGen4"
+        android:layout_toStartOf="@+id/chkGen4"
+        android:onClick="onCheckboxClicked" />
+
+    <CheckBox
+        android:text="Gen 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkGen2"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_alignTop="@+id/chkGen1"
+        android:layout_toLeftOf="@+id/chkGen3"
+        android:layout_toStartOf="@+id/chkGen3"
+        android:onClick="onCheckboxClicked" />
+
+    <CheckBox
+        android:text="Gen 5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chkGen1"
+        android:layout_alignLeft="@+id/chkGen1"
+        android:layout_alignStart="@+id/chkGen1"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:id="@+id/chkGen5"
+        android:onClick="onCheckboxClicked" />
+
+    <CheckBox
+        android:text="Gen 4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkGen4"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_above="@+id/chkGen7"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onCheckboxClicked" />
+
+    <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
+        android:id="@+id/pkmnAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblAmountPkmn"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tvAmountPkmn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pkmnAmount"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:text="Pick The Amount of Pokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAmountPkmn"
+        android:textSize="24sp"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/chkGen5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:text="Gen 6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkGen6"
+        android:layout_below="@+id/chkGen3"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:onClick="onCheckboxClicked" />
+
+    <CheckBox
+        android:text="Gen 7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkGen7"
+        android:layout_below="@+id/chkGen3"
+        android:layout_alignRight="@+id/chkGen4"
+        android:layout_alignEnd="@+id/chkGen4"
+        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp"
+        android:onClick="onCheckboxClicked" />
+
+    <Button
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="159dp"
+        android:onClick="startGame"/>
+
+</RelativeLayout>
