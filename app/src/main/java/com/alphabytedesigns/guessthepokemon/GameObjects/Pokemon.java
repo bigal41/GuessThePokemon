@@ -14,6 +14,8 @@ public class Pokemon {
 
     private String                          darkUrl;
 
+    private int                             generation;
+
     private String                          name;
 
     private String                          normalUrl;
@@ -22,34 +24,37 @@ public class Pokemon {
     // ACCESSORS
     /////////////////////////////////////////////////////////////////////////////
 
-    public int 		                        getId( ) 	{ return this.id; }
+    public int 		                        getId( ) 	                    { return this.id; }
 
-    public String                           getDarkUrl( ) { return this.darkUrl; }
+    public String                           getDarkUrl( )                   { return this.darkUrl; }
 
-    public String 	                        getName( ) 	{ return this.name; }
+    public int                              getGeneration( )                { return this.generation; }
 
-    public String 	                        getNormalURL( )	{ return this.normalUrl; }
+    public String 	                        getName( ) 	                    { return this.name; }
+
+    public String 	                        getNormalURL( )	                { return this.normalUrl; }
 
     /////////////////////////////////////////////////////////////////////////////
     // MUTATORS
     /////////////////////////////////////////////////////////////////////////////
 
-    public void 	                        setId( int value ) 		{ this.id = value; }
+    public void 	                        setId( int value ) 		        { this.id = value; }
 
-    public void                             setDarkUrl( String value ) { this.darkUrl = value;}
+    public void                             setDarkUrl( String value )      { this.darkUrl = value;}
 
-    public void 	                        setName( String value ) { this.name = value; }
+    public void 	                        setName( String value )         { this.name = value; }
 
-    public void		                        setNormalUrl(String value )	{ this.normalUrl = value; }
+    public void		                        setNormalUrl(String value )     { this.normalUrl = value; }
 
     /////////////////////////////////////////////////////////////////////////////
     // CONSTRUCTORS
     /////////////////////////////////////////////////////////////////////////////
 
-    public Pokemon( int id, String name, String normalUrl, String darkUrl )
+    public Pokemon( int id, String name, String normalUrl, String darkUrl, int generation )
     {
         this.id 	    = id;
         this.darkUrl    = darkUrl;
+        this.generation = generation;
         this.name 	    = name;
         this.normalUrl 	= normalUrl;
     }

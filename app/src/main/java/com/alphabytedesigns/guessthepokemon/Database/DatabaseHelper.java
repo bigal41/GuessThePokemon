@@ -15,7 +15,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by Home on 12/15/2016.
@@ -28,15 +30,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /////////////////////////////////////////////////////////////////////////////
 
     //Constants
-    private static final String                 COLUMN_ID 			    = "id";
-    private static final String                 LETTER_COLUMN_ID        = "id";
-    private static final String                 COLUMN_NORMAL_LOCATION 	= "normal_url";
-    private static final String                 COLUMN_DARK_LOCATION    = "dark_url";
-    private static final String                 COLUMN_TITLE 		    = "name";
-    private static final String                 DB_NAME                 = "guess_the_pokemon";
-    private static final int                    SCHEMA_VERSION          = 1;
-    private static final String                 POKEMON_TABLE_NAME      = "pokemon";
-    private static final String                 LETTER_TABLE_NAME       = "letters";
+    private static final String                 COLUMN_TITLE 		                = "name";
+    private static final String                 DB_NAME                             = "guess_the_pokemon";
+    private static final String                 LETTER_COLUMN_ID                    = "id";
+    private static final int                    SCHEMA_VERSION                      = 1;
+    private static final String                 POKEMON_COLUMN_DARK_LOCATION        = "dark_url";
+    private static final String                 POKEMON_COLUMN_GENERATION           = "generation";
+    private static final String                 POKEMON_COLUMN_ID 	                = "id";
+    private static final String                 POKEMON_COLUMN_NORMAL_LOCATION 	    = "normal_url";
+    private static final String                 POKEMON_TABLE_NAME                  = "pokemon";
+    private static final String                 LETTER_TABLE_NAME                   = "letters";
 
     //Non Constants
     private final Context                       mContext;
@@ -77,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         //Check if the database exists
         boolean dbExist = checkDatabase( );
-        
+
         if( dbExist )
         {
             SQLiteDatabase.deleteDatabase( new File( dbPath ) );
@@ -186,6 +189,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 
+
+    /////////////////////////////////////////////////////////////////////////////
+    // FINDERS
+    /////////////////////////////////////////////////////////////////////////////
+
+    /**
+     *
+     * @param generations
+     * @return
+     */
+    public List< Pokemon > getPokemonByGenerations(ArrayList< Integer > generations ) {
+
+        List< Pokemon > pokemons = new ArrayList< Pokemon >( );
+
+        //Since we are receiving a list we need to break it down.
+        Integer[] gens = generations.toArray( new Integer[generations.size()] );
+
+        String query = "SELECT * FROM " + POKEMON_TABLE_NAME + " WHERE " + POKEMON_COLUMN_GENERATION + " in  ( " + gens.toString().replace( "[", "" ).replace( "]", "" ) + " )";
+
+//        Cursor c = mDatabase.rawQuery( query, null );
+        Cursor c = mDatabase.rawQuery( query, null );
+        c.moveToFirst( );
+
+        while( ! c.isLast() )
+        {
+            Pokemon pokemon = new Pokemon( c.getInt( c.getColumnIndex( POKEMON_COLUMN_ID ) ),
+                                           c.getString( c.getColumnIndex( COLUMN_TITLE ) ),
+                                           c.getString( c.getColumnIndex( POKEMON_COLUMN_NORMAL_LOCATION ) ),
+                                           c.getString( c.getColumnIndex( POKEMON_COLUMN_DARK_LOCATION ) ),
+                                           c.getInt(c.getColumnIndex( POKEMON_COLUMN_GENERATION ) ) );
+            c.moveToNext();
+        }
+        c.close();
+
+        return pokemons;
+    }
+
+
     /**
      *
      * @param id
@@ -193,11 +234,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Pokemon getPokemonById( int id )
     {
-        String query = "SELECT * FROM " + POKEMON_TABLE_NAME + " WHERE " + COLUMN_ID + " = " + id;
+        String query = "SELECT * FROM " + POKEMON_TABLE_NAME + " WHERE " + POKEMON_COLUMN_ID + " = " + id;
 
         Cursor c = mDatabase.rawQuery( query, null );
         c.moveToFirst( );
-        Pokemon pokemon = new Pokemon( c.getInt( c.getColumnIndex( COLUMN_ID ) ), c.getString( c.getColumnIndex( COLUMN_TITLE ) ), c.getString( c.getColumnIndex( COLUMN_NORMAL_LOCATION ) ), c.getString( c.getColumnIndex( COLUMN_DARK_LOCATION ) ) );
+        Pokemon pokemon = new Pokemon( c.getInt( c.getColumnIndex( POKEMON_COLUMN_ID ) ),
+                                       c.getString( c.getColumnIndex( COLUMN_TITLE ) ),
+                                       c.getString( c.getColumnIndex( POKEMON_COLUMN_NORMAL_LOCATION ) ),
+                                       c.getString( c.getColumnIndex( POKEMON_COLUMN_DARK_LOCATION ) ),
+                                       c.getInt(c.getColumnIndex( POKEMON_COLUMN_GENERATION ) ) );
         c.close( );
 
         return pokemon;
@@ -217,12 +262,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToFirst( );
         while( ! c.isLast() )
         {
-            letters.put(c.getInt( c.getColumnIndex( LETTER_COLUMN_ID ) ), c.getString( c.getColumnIndex( COLUMN_TITLE ) ) );
+            letters.put( c.getInt( c.getColumnIndex( LETTER_COLUMN_ID ) ),
+                         c.getString( c.getColumnIndex( COLUMN_TITLE ) ) );
             c.moveToNext();
         }
         c.close();
-
-        letters.put( 26, "Z");
 
         return letters;
 

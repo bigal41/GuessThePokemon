@@ -212,7 +212,7 @@ public class CustomGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Called when the user clicks the GenOne button
+     * Called when the user clicks the start game button
      */
     public void startGame(View view) {
 
@@ -229,7 +229,7 @@ public class CustomGameActivity extends AppCompatActivity {
         Log.d("CustomGame", "Playable abount is " + playablePokemonAmount );
         Log.d("CustomGameActivity", "The generations added so far are  " + generationList.toString());
 
-        //Launch the Main Game Activity with GEN TWO paramter
+        //Launch the Main Game Activity with the list of generations and the amount playable pokemon.
         Intent intent = new Intent(this, MainGameActivity.class);
         intent.putExtra(EXTRA_GENERATIONS, generationList);
         intent.putExtra(EXTRA_PLAYABLE_POKEMON, playablePokemonAmount);

@@ -144,19 +144,52 @@
             android:text="@string/LetterI" />
     </GridLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/successguess"
+        android:id="@+id/SuccessDialog"
+        android:textSize="35sp"
+        android:textColor="#000000"
+        android:layout_below="@+id/grdPokemonName"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNxtPkmon"
+        android:layout_below="@+id/SuccessDialog"
+        android:layout_marginTop="10dp"
+        android:text="@string/nxtPkmon"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:enabled="false" />
+
+    <TextView
+        android:text="@string/guessLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/lblLevel"
+        android:id="@+id/lblNumGuesses"
+        android:layout_above="@+id/ivPokemon"
+        android:layout_toRightOf="@+id/grdAnswerKeys"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <GridLayout
         android:id="@+id/grdPokemonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ivPokemon"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:columnCount="12"
         android:orientation="vertical"
         android:rowCount="1"
-        tools:context=".GridXMLActivity" >
+        tools:context=".GridXMLActivity"
+        android:layout_below="@+id/ivPokemon"
+        android:layout_alignRight="@+id/SuccessDialog"
+        android:layout_alignEnd="@+id/SuccessDialog">
 
         <Button
             android:id="@+id/btnAnswer1"
@@ -269,40 +302,5 @@
             android:layout_row="0"
             android:text="@string/Blank" />
     </GridLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/successguess"
-        android:id="@+id/SuccessDialog"
-        android:textSize="35sp"
-        android:textColor="#000000"
-        android:layout_below="@+id/grdPokemonName"
-        android:layout_marginTop="25dp"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnNxtPkmon"
-        android:layout_below="@+id/SuccessDialog"
-        android:layout_marginTop="10dp"
-        android:text="@string/nxtPkmon"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        android:enabled="false" />
-
-    <TextView
-        android:text="@string/guessLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/lblLevel"
-        android:id="@+id/lblNumGuesses"
-        android:layout_above="@+id/ivPokemon"
-        android:layout_toRightOf="@+id/grdAnswerKeys"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

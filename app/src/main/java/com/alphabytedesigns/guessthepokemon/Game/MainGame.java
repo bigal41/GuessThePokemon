@@ -38,6 +38,10 @@ public class MainGame {
 
     private List<Button>                                    answerBtnList;
 
+    /**
+     * This is a map for the answer buttons. The <b>key</b> is the actual <i>Button</i> and the
+     * <b>value</b> is either true or false depending if there is a letter on the button.
+     */
     private Map<Button, Boolean>                            answerBtnMap;
 
     private int                                             correctPokemonNeeded;
@@ -176,42 +180,68 @@ public class MainGame {
                     Button btn = (Button) view;
                     boolean hasBeenSet = false;
 
+                    //We need to loop over the Answer Btn Map and find the next button that does not
+                    // have a text set -- This is determined by the Boolean value.
                     Iterator< Map.Entry< Button, Boolean > > it = answerBtnMap.entrySet().iterator();
 
                     while (it.hasNext())
                     {
-                        Map.Entry<Button, Boolean> pairs = it.next();
-                        if( !pairs.getValue() && pairs.getKey().isEnabled())
+                        //Get the current pair.
+                        Map.Entry<Button, Boolean> answerPair = it.next();
+
+                        //If pair's value is set to false and the if the button is enabled
+                        //We found the next available answer button.
+
+                        // NOTE: The reason we check if the button is enabled is because we hide
+                        // and disable buttons that are not needed
+                        if( ! answerPair.getValue() && answerPair.getKey().isEnabled())
                         {
+                            //Sanity Check
                             if( hasBeenSet ) return;
 
-                            pairs.getKey().setText( btn.getText() );
-                            pairs.setValue(true);
+                            //Set the text value to the same as the letter button.
+                            answerPair.getKey().setText( btn.getText() );
+
+                            //We set the value to true so we know that this button text has been set
+                            answerPair.setValue(true);
+
+                            //Disable the letter button.
                             btn.setEnabled(false);
                             hasBeenSet = true;
 
-                            if( it.hasNext() )
-                            {
-                                Map.Entry<Button, Boolean> entry = it.next();
-                                Button b = entry.getKey();
-                                if( !b.isEnabled() )
-                                {
-                                    if( checkWinner( ) )
-                                    {
-                                        displaySuccessDialog( );
-                                        return;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if( checkWinner( ) )
-                                {
-                                    displaySuccessDialog( );
-                                    return;
-                                }
-                            }
+                            //We want to break now since we have successfully set an answer button
+                            break;
 
+                        }
+                    }
+
+                    //Next we want to loop through all the answer buttons and check if the values
+                    //have been set.
+
+                    //Reset the iterator
+                    it = answerBtnMap.entrySet().iterator();
+                    Boolean completedGuess = false;
+
+                    while (it.hasNext()) {
+                        //Get the current pair.
+                        Map.Entry<Button, Boolean> answerPair = it.next();
+
+                        if (!answerPair.getValue() && answerPair.getKey().isEnabled())
+                        {
+                            completedGuess = false;
+                            break;
+                        }
+                        else {
+                            completedGuess = true;
+                        }
+                    }
+
+                    if( completedGuess )
+                    {
+                        if( checkWinner() )
+                        {
+                            displaySuccessDialog();
+                            return;
                         }
                     }
                 }
